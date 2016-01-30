@@ -13,3 +13,5 @@ function Box:constructor(width, height)
     self.width = width
     self.height = height
 end
+
+Vector = Point:extend()
