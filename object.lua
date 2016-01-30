@@ -1,14 +1,14 @@
 Object = {}
 
 function Object:extend()
-    o = {}
+    local o = {}
     setmetatable(o, self)
     self.__index = self
     return o
 end
 
 function Object:new(...)
-    o = {}
+    local o = {}
     setmetatable(o, self)
     self.__index = self
 

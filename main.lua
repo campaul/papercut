@@ -5,15 +5,15 @@ require 'graphics'
 local world = Entity:new(Point:new(0, 0))
 
 function love.load()
-    player = Entity:new(Point:new(100, 100))
-    player_model = Rectangle:new(Point:new(0, 0), Box:new(50, 50))
+    local player = Entity:new(Point:new(100, 100))
+    local player_model = Rectangle:new(Point:new(0, 0), Box:new(50, 50))
 
     player:attach(player_model)
     world:attach(player)
 end
 
 function love.draw()
-    draw(world) 
+    draw(world)
 end
 
 function draw(node)
