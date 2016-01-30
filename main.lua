@@ -24,7 +24,7 @@ function draw(node)
         node:draw()
     end
 
-    for _, child in ipairs(node.children) do
+    for child in node.children:each() do
         draw(child)
     end
 
