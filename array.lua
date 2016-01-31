@@ -13,3 +13,7 @@ function Array:each()
         end
     end
 end
+
+function Array:insert(e)
+    table.insert(self, e)
+end

@@ -1,7 +1,6 @@
 require 'entity'
 require 'geometry'
 
-FLOOR = 500
 GRAVITY = 0.098
 JUMP_IMPULSE = 3
 JUMP_DURATION = 70
@@ -11,8 +10,9 @@ TICK_SIZE = 0.005
 
 Player = Entity:extend()
 
-function Player:constructor(position)
+function Player:constructor(position, box)
     Entity.constructor(self, position)
+    self.box = box
     self.velocity = Vector:new(0, 0)
     self.jumping = false
     self.left = false
@@ -20,8 +20,15 @@ function Player:constructor(position)
     self.jump_fuel = JUMP_DURATION
 end
 
-function Player:update(dt)
+function Player:update(dt, floors)
     local ticks = math.floor(dt / TICK_SIZE)
+
+    landings = Array:new()
+    for floor in floors:each() do
+        if floor:below(self) then
+            landings:insert(floor)
+        end
+    end
 
     for i = 1, ticks do
         if self.jumping and self.jump_fuel == JUMP_DURATION then
@@ -58,9 +65,11 @@ function Player:update(dt)
         self.position.x = self.position.x + self.velocity.x
     end
 
-    if self.position.y > FLOOR then
-        self.position.y = FLOOR
-        self.velocity.y = 0
-        self.jump_fuel = JUMP_DURATION
+    for floor in landings:each() do
+        if floor:above(self) then
+            self.position.y = floor.position.y - self.box.height
+            self.velocity.y = 0
+            self.jump_fuel = JUMP_DURATION
+        end
     end
 end

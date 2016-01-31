@@ -9,5 +9,6 @@ function Entity:constructor(position)
 end
 
 function Entity:attach(e)
-    table.insert(self.children, e)
+    self.children:insert(e)
+    e.parent = self
 end
