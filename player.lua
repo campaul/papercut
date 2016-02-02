@@ -41,22 +41,30 @@ function Player:update(dt, floors)
             self.jump_fuel = self.jump_fuel - 1
         end
 
+        -- TODO: this is named backwards
+        local dampening
+        if not self.on_floor then
+            dampening = 0.5
+        else
+            dampening = 1
+        end
+
         if self.left then
             -- accelerate left
             if self.velocity.x > -RUN_SPEED then
-                self.velocity.x = math.max(self.velocity.x - RUN_ACCELERATION, -RUN_SPEED)
+                self.velocity.x = math.max(self.velocity.x - RUN_ACCELERATION * dampening, -RUN_SPEED)
             end
         elseif self.right then
             -- accelerate right
             if self.velocity.x < RUN_SPEED then
-                self.velocity.x = math.min(self.velocity.x + RUN_ACCELERATION, RUN_SPEED)
+                self.velocity.x = math.min(self.velocity.x + RUN_ACCELERATION * dampening, RUN_SPEED)
             end
         else
             -- decelerate
             if self.velocity.x > 0 then
-                self.velocity.x = math.max(self.velocity.x - RUN_ACCELERATION, 0)
+                self.velocity.x = math.max(self.velocity.x - RUN_ACCELERATION * 0.5 * dampening, 0)
             elseif self.velocity.x < 0 then
-                self.velocity.x = math.min(self.velocity.x + RUN_ACCELERATION, 0)
+                self.velocity.x = math.min(self.velocity.x + RUN_ACCELERATION * 0.5 * dampening, 0)
             end
         end
 
