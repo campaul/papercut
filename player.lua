@@ -43,19 +43,19 @@ function Player:update(dt, floors)
         if self.left then
             -- accelerate left
             if self.velocity.x > -RUN_SPEED then
-                self.velocity.x = self.velocity.x - RUN_ACCELERATION
+                self.velocity.x = math.max(self.velocity.x - RUN_ACCELERATION, -RUN_SPEED)
             end
         elseif self.right then
             -- accelerate right
             if self.velocity.x < RUN_SPEED then
-                self.velocity.x = self.velocity.x + RUN_ACCELERATION
+                self.velocity.x = math.min(self.velocity.x + RUN_ACCELERATION, RUN_SPEED)
             end
         else
             -- decelerate
             if self.velocity.x > 0 then
-                self.velocity.x = self.velocity.x - RUN_ACCELERATION
+                self.velocity.x = math.max(self.velocity.x - RUN_ACCELERATION, 0)
             elseif self.velocity.x < 0 then
-                self.velocity.x = self.velocity.x + RUN_ACCELERATION
+                self.velocity.x = math.min(self.velocity.x + RUN_ACCELERATION, 0)
             end
         end
 
