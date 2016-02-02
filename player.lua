@@ -73,6 +73,7 @@ function Player:update(dt, floors)
             self.velocity.y = 0
             self.jump_fuel = JUMP_DURATION
             self.on_floor = true
+            self.jumping = false
         end
     end
 end
