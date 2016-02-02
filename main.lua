@@ -51,7 +51,7 @@ end
 
 function love.keypressed(key)
     if key == 'space' then
-        player.jumping = true
+        player.jumping = player.on_floor
     end
 
     if key == 'a' then

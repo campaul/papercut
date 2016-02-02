@@ -18,6 +18,7 @@ function Player:constructor(position, box)
     self.left = false
     self.right = false
     self.jump_fuel = JUMP_DURATION
+    self.on_floor = false
 end
 
 function Player:update(dt, floors)
@@ -65,11 +66,13 @@ function Player:update(dt, floors)
         self.position.x = self.position.x + self.velocity.x
     end
 
+    self.on_floor = false
     for floor in landings:each() do
         if floor:above(self) then
             self.position.y = floor.position.y - self.box.height
             self.velocity.y = 0
             self.jump_fuel = JUMP_DURATION
+            self.on_floor = true
         end
     end
 end
