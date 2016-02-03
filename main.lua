@@ -46,6 +46,8 @@ function love.update(dt)
 end
 
 function love.draw()
+    local scroll = -player.position.x + (love.graphics.getWidth() / 2) - (player.box.width / 2)
+    love.graphics.translate(scroll, 0)
     camera:draw(world)
 end
 
