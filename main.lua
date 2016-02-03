@@ -2,30 +2,25 @@ require 'array'
 require 'camera'
 require 'entity'
 require 'geometry'
-require 'graphics'
 require 'level'
 require 'player'
 
-world = Entity:new(Point:new(0, 0))
+world = Entity:new(Point:new(0, 0), Box:new(0, 0))
 camera = Camera:new(Point:new(0, 0))
 floors = Array:new()
+debug = true
 
 function love.load()
     love.window.setTitle('Papercut')
 
     -- create player
     player = Player:new(Point:new(100, 100), Box:new(50, 50))
-    player:attach(Debug:new())
 
     -- create some floors
     world_floor = WorldFloor:new(550)
-    world_floor:attach(Debug:new())
     platform1 = Floor:new(Point:new(100, 100), 300)
-    platform1:attach(Debug:new())
     platform2 = Floor:new(Point:new(400, 250), 300)
-    platform2:attach(Debug:new())
     platform3 = Floor:new(Point:new(100, 400), 300)
-    platform3:attach(Debug:new())
 
     -- add things to the world
     world:attach(world_floor)
@@ -48,7 +43,10 @@ end
 function love.draw()
     local scroll = -player.position.x + (love.graphics.getWidth() / 2) - (player.box.width / 2)
     love.graphics.translate(scroll, 0)
-    camera:draw(world)
+    camera:draw(world, love.graphics)
+    if debug then
+        camera:debug(world, love.graphics)
+    end
 end
 
 function love.keypressed(key)

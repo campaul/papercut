@@ -1,12 +1,10 @@
 require 'entity'
 require 'geometry'
-require 'graphics'
 
 Floor = Entity:extend()
 
 function Floor:constructor(position, width)
-    Entity.constructor(self, position)
-    self.box = Box:new(width, 1)
+    Entity.constructor(self, position, Box:new(width, 1))
 end
 
 function Floor:below(e)
@@ -44,8 +42,7 @@ end
 WorldFloor = Entity:extend()
 
 function WorldFloor:constructor(y)
-    Entity.constructor(self, Point:new(0, y))
-    self.box = Box:new(love.graphics.getWidth(), 1)
+    Entity.constructor(self, Point:new(0, y), Box:new(love.graphics.getWidth(), 1))
 end
 
 function WorldFloor:below(e)

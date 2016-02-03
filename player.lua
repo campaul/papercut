@@ -11,14 +11,14 @@ TICK_SIZE = 0.005
 Player = Entity:extend()
 
 function Player:constructor(position, box)
-    Entity.constructor(self, position)
-    self.box = box
+    Entity.constructor(self, position, box)
     self.velocity = Vector:new(0, 0)
     self.jumping = false
     self.left = false
     self.right = false
     self.jump_fuel = JUMP_DURATION
     self.on_floor = false
+    self.debug_color = {255, 0, 0, 255}
 end
 
 function Player:update(dt, floors)
