@@ -20,29 +20,20 @@ function Level:constructor()
     -- create player
     self.player = Player:new(Point:new(100, 100), Box:new(50, 50))
 
-    -- create some floors
-    local world_floor = WorldFloor:new(550)
-    local platform1 = Floor:new(Point:new(100, 100), 300)
-    local platform2 = Floor:new(Point:new(400, 250), 300)
-    local platform3 = Floor:new(Point:new(100, 400), 300)
-
     -- add things to the world
-    self.world:attach(world_floor)
-    self.world:attach(platform1)
-    self.world:attach(platform2)
-    self.world:attach(platform3)
     self.world:attach(self.player)
 
-    -- add things for the physics system
-    self.floors = Array:new()
-    self.floors:insert(world_floor)
-    self.floors:insert(platform1)
-    self.floors:insert(platform2)
-    self.floors:insert(platform3)
+    -- create surfaces
+    self.surfaces = Array:new()
+end
+
+function Level:add_surface(surface)
+    self.surfaces:insert(surface)
+    self.world:attach(surface)
 end
 
 function Level:update(dt)
-    self.player:update(dt, self.floors)
+    self.player:update(dt, self.surfaces)
 end
 
 function Level:draw(g)

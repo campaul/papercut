@@ -1,8 +1,8 @@
-require 'level'
+require 'levels/level_01'
 
 function love.load()
     love.window.setTitle('Papercut')
-    level = Level:new()
+    level = level_01
 end
 
 function love.update(dt)
