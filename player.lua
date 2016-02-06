@@ -82,6 +82,10 @@ function Player:update(dt, floors)
             self.jump_fuel = JUMP_DURATION
             self.on_floor = true
             self.jumping = false
+
+            if floor.trigger then
+                floor:trigger()
+            end
         end
     end
 end
